@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import reduxImmutableStateInvariant from 'redux-immutable-state-invariant';
 import DevTools from '../../components/DevTools';
 import initialState from '../../config/initialState';
-import rootReducer from './rootReducer';
+import rootReducer from '../modules';
 
 export default () => {
 

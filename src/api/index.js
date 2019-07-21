@@ -1,7 +1,9 @@
 import app from 'firebase/app';
 import 'firebase/auth';
 
-export default class Firebase {
+import AuthCtrl from './AuthCtrl';
+
+class Api {
 
   init() {
     app.initializeApp({
@@ -14,6 +16,8 @@ export default class Firebase {
       appId: process.env.REACT_APP_APP_ID,
     });
 
-    this.auth = app.auth();
+    this.auth = new AuthCtrl(app)
   }
 }
+
+export default new Api();

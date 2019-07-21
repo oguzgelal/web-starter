@@ -2,7 +2,7 @@ import React from 'react';
 import App from '../../App';
 
 const Base = props => (
-  <App />
+  <App {...props} />
 );
 
 Base.propTypes = {
