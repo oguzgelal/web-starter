@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import styled from 'styled-components/macro';
 
 import Routes from './Routes';
 
 import api from './api';
-import { setAuthObserver } from './redux/modules/user';
+import { userActions } from './redux/modules/user';
 
 class App extends React.Component {
   constructor(props, context) {
@@ -17,7 +19,7 @@ class App extends React.Component {
 
   componentDidMount() {
     api.init();
-    setAuthObserver();
+    this.props.userActions.setAuthObserver();
   }
 
   render() {
@@ -28,4 +30,15 @@ class App extends React.Component {
 App.propTypes = {
 };
 
-export default App;
+const mapStateToProps = (state, ownProps) => ({
+  // authors: state.authors
+});
+
+const mapDispatchToProps = dispatch => ({
+  userActions: bindActionCreators(userActions, dispatch),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(App);
