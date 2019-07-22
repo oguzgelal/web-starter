@@ -1,6 +1,7 @@
 export default class AuthCtrl {
 
-  constructor(app) {
+  constructor(app, request) {
+    this.request = request;
     this.auth = app.auth();
     this.defaultPersistence = app.auth.Auth.Persistence.LOCAL;
   }
@@ -11,13 +12,14 @@ export default class AuthCtrl {
   }
 
   login({ email, password, onFail }) {
-    this.auth.setPersistence(this.defaultPersistence).then(() => {
-      this.auth.signInWithEmailAndPassword(email, password).catch(onFail)
-    }).catch(onFail)
-
+    this.request(() => new Promise((rs, rj) => {
+      this.auth.setPersistence(this.defaultPersistence).then(() => {
+        this.auth.signInWithEmailAndPassword(email, password)
+          .then(rs).catch(rj)
+      }).catch(rj)
+    }), { id: 'login', onFail });
   }
 
   logout() {
-
   }
 }

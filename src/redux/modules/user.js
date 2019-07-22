@@ -40,7 +40,7 @@ export const userActions = {
 export default (state = initialState.user, action = {}) => {
   switch(action.type) {
     case SAVE_USER_TO_STATE: return action.user;
-    case REMOVE_USER_FROM_STATE: return null;
+    case REMOVE_USER_FROM_STATE: return initialState.user;
     default: return state;
   }
 }

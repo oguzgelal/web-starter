@@ -1,4 +1,5 @@
 export default {
-  user: null,
-  errors: {}
+  user: {},
+  errors: {},
+  requests: {},
 }

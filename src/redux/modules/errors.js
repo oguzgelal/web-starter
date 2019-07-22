@@ -1,8 +1,7 @@
-import get from 'lodash/get';
 import initialState from '../../config/initialState';
 
-export const REGISTER = 'pim/user/REGISTER';
-export const DISMISS = 'pim/user/DISMISS';
+export const REGISTER = 'pim/errors/REGISTER';
+export const DISMISS = 'pim/errors/DISMISS';
 
 const registerError = error => ({ type: REGISTER, error });
 const dismiss = id => ({ type: DISMISS, id });
