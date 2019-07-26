@@ -7,8 +7,10 @@ import isEmpty from 'lodash/isEmpty';
 import { styled } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import SnackbarContent from '@material-ui/core/SnackbarContent';
+import Snackbar from './components/Snackbar';
+
+import SnackbarMessages from './containers/SnackbarMessages';
+
 import { userActions } from './redux/modules/user';
 
 const Wrapper = styled('div')({
@@ -43,7 +45,6 @@ class Routes extends React.Component {
   }
 
   render() {
-    const errors = Object.values(this.props.errors);
     return (
       <>
       <Wrapper>
@@ -64,6 +65,7 @@ class Routes extends React.Component {
               onChange={e => this.setState({ password: e.target.value })}
             />
             <Button
+              disabled={get(this.props, 'requests.login')}
               onClick={() => this.props.userActions.login({
                 email: this.state.email,
                 password: this.state.password,
@@ -74,16 +76,7 @@ class Routes extends React.Component {
           </MainContent>
         </AppContent>
       </Wrapper>
-
-      <Snackbar
-        open={errors.length > 0}
-        anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }}
-      >
-        <SnackbarContent
-          variant="error"
-          message={get(errors, '[0].message')}
-        />
-      </Snackbar>
+      <SnackbarMessages />
       </>
     );
   }
@@ -93,7 +86,7 @@ Routes.propTypes = {
 };
 
 const mapStateToProps = (state, ownProps) => ({
-  errors: state.errors,
+  requests: state.requests,
 });
 
 const mapDispatchToProps = dispatch => ({
