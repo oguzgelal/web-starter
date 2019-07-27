@@ -7,7 +7,8 @@ import Icon from '@material-ui/core/Icon';
 
 import get from 'lodash/get';
 
-const Wrapper = styled(MuiSnackbar)(p => ({}));
+const Wrapper = styled(MuiSnackbar)(p => ({
+}));
 
 const Contents = styled(MuiSnackbarContent)(p => ({
   color: 'white',
@@ -21,7 +22,7 @@ const MessageContents = styled('span')(p => ({
 
 const DisplayIcon = styled(Icon)(p => ({
   fontSize: p.theme.fontSize,
-  marginRight: p.theme.spacing(1),
+  marginRight: p.theme.spacing(2),
 }))
 
 const Snackbar = props => {
@@ -29,7 +30,10 @@ const Snackbar = props => {
 
   return (
     <Wrapper
-      anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      anchorOrigin={{
+        vertical: 'bottom',
+        horizontal: 'left',
+      }}
       transitionDuration={{
         enter: get(props, 'theme.transitions.duration.enteringScreen'),
         exit: get(props, 'theme.transitions.duration.leavingScreen'),
@@ -40,7 +44,7 @@ const Snackbar = props => {
         variant={props.variant}
         message={(
           <MessageContents>
-            <DisplayIcon color="white">
+            <DisplayIcon style={{ color: 'white' }}>
               {!!props.icon && props.icon}
               {!props.icon && props.variant === 'error' && 'error'}
               {!props.icon && props.variant === 'warning' && 'warning'}

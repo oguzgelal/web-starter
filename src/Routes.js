@@ -12,6 +12,7 @@ import Snackbar from './components/Snackbar';
 import SnackbarMessages from './containers/SnackbarMessages';
 
 import { userActions } from './redux/modules/user';
+import { modeActions } from './redux/modules/mode';
 
 const Wrapper = styled('div')(p => ({
   display: 'flex',
@@ -30,7 +31,6 @@ const AppContent = styled('div')({
 const MainContent = styled('div')(p => ({
   flex: 1,
   padding: '48px 36px 0',
-  background: p.theme.c('bg.default'),
 }));
 
 class Routes extends React.Component {
@@ -73,6 +73,9 @@ class Routes extends React.Component {
             >
               Login
             </Button>
+            <Button onClick={() => this.props.modeActions.changeMode()}>
+              Toggle Mode
+            </Button>
           </MainContent>
         </AppContent>
       </Wrapper>
@@ -91,6 +94,7 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = dispatch => ({
   userActions: bindActionCreators(userActions, dispatch),
+  modeActions: bindActionCreators(modeActions, dispatch),
 });
 
 export default connect(

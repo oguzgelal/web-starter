@@ -72,6 +72,7 @@ class Messages extends React.Component {
           <IconButton
             key="close"
             aria-label="close"
+            style={{ color: 'white' }}
             onClick={() => this.dismissMessage(get(displayMessage, 'id'))}
           >
             <Icon>close</Icon>
