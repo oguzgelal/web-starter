@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { styled } from '@material-ui/styles';
+import { styled, withTheme } from '@material-ui/styles';
 import IconButton from '@material-ui/core/IconButton';
 import Icon from '@material-ui/core/Icon';
 import get from 'lodash/get';
@@ -40,13 +40,14 @@ class Messages extends React.Component {
   }
 
   dismissMessage(id) {
+    const t = get(this.props, 'theme.transitions.duration.leavingScreen');
     this.setState({ open: false }, () => {
       this.props.messageActions.dismiss(id);
       setTimeout(() => {
         this.setState({ displayMessage: null }, () => {
           this.setMessage();
         })
-      }, 300)
+      }, t)
     })
   }
 
@@ -56,7 +57,10 @@ class Messages extends React.Component {
       <Snackbar
         key={get(displayMessage, 'id')}
         open={open}
-        autoHideDuration={3000}
+        autoHideDuration={!get(displayMessage, 'sticky') ?
+          get(displayMessage, 'duration') || 3000 :
+          null
+        }
         onClose={(e, reason) => {
           if (reason === 'timeout') {
             this.dismissMessage(get(displayMessage, 'id'))
@@ -64,7 +68,7 @@ class Messages extends React.Component {
         }}
         variant={get(displayMessage, 'type')}
         message={get(displayMessage, 'message')}
-        action={[
+        action={!get(displayMessage, 'dismiss') ? null : [
           <IconButton
             key="close"
             aria-label="close"
@@ -79,6 +83,8 @@ class Messages extends React.Component {
 }
 
 Messages.propTypes = {
+  theme: PropTypes.object,
+  messages: PropTypes.array,
   messageActions: PropTypes.object,
 };
 
@@ -93,4 +99,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(Messages);
+)(withTheme(Messages));

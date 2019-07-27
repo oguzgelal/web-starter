@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { styled } from '@material-ui/styles';
+import { styled, withTheme } from '@material-ui/styles';
 import MuiSnackbar from '@material-ui/core/Snackbar';
 import MuiSnackbarContent from '@material-ui/core/SnackbarContent';
 import Icon from '@material-ui/core/Icon';
@@ -11,7 +11,7 @@ const Wrapper = styled(MuiSnackbar)(p => ({}));
 
 const Contents = styled(MuiSnackbarContent)(p => ({
   color: 'white',
-  backgroundColor: get(p, `theme.palette['${p.variant}'].main`),
+  backgroundColor: p.theme.c(p.variant),
 }));
 
 const MessageContents = styled('span')(p => ({
@@ -30,9 +30,14 @@ const Snackbar = props => {
   return (
     <Wrapper
       anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
+      transitionDuration={{
+        enter: get(props, 'theme.transitions.duration.enteringScreen'),
+        exit: get(props, 'theme.transitions.duration.leavingScreen'),
+      }}
       {...rest}
     >
       <Contents
+        variant={props.variant}
         message={(
           <MessageContents>
             <DisplayIcon color="white">
@@ -62,4 +67,4 @@ Snackbar.propTypes = {
   ])
 };
 
-export default Snackbar;
+export default withTheme(Snackbar);

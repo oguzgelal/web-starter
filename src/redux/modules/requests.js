@@ -1,5 +1,6 @@
 import get from 'lodash/get';
 import initialState from '../../config/initialState';
+import { messageActions } from './messages';
 
 const REQUEST_START = 'pim/requests/REQUEST_START';
 const REQUEST_STOP = 'pim/requests/REQUEST_STOP';
@@ -22,6 +23,8 @@ const request = (requestFn, options = {}) => (dispatch, getState) => {
     })
     .catch(err => {
       dispatch(stopRequest({ id }))
+      const msg = get(err, 'message', null);
+      if (msg) dispatch(messageActions.register(msg, { type: 'error' }));
       if (typeof options.onFail === 'function') {
         options.onFail(err);
       }

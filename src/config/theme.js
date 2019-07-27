@@ -1,22 +1,31 @@
 import { createMuiTheme } from '@material-ui/core/styles';
+import getColor from '../utils/getColor';
+
+const blue = '#1e72bd';
+const red = '#DB3737';
+const green = '#15B371';
+const orange = '#D9822B';
+
+const primary = '#1e72bd';
+const secondary = '#1b212b';
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#1e72bd' },
-    secondary: { main: '#1b212b' },
-    error: { main: '#DB3737' },
-    success: { main: '#15B371' },
-    warning: { main: '#D9822B' },
-
-    bgPaper: { main: '#fff' },
+    primary: { main: primary },
+    secondary: { main: secondary },
+    default: { main: secondary },
+    info: { main: blue },
+    error: { main: red },
+    success: { main: green },
+    warning: { main: orange },
     bg: {
-      dark: '#000',
-      light: '#fff',
-    },
-
+      paper: { light: '#fff', dark: '#000' },
+      default: { light: '#fafafa', dark: '#1b212b' }
+    }
   }
 });
 
-console.log('theme', theme);
+theme.c = getColor(theme, 'dark');
 
+console.log(theme);
 export default theme;

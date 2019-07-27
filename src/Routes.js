@@ -30,7 +30,7 @@ const AppContent = styled('div')({
 const MainContent = styled('div')(p => ({
   flex: 1,
   padding: '48px 36px 0',
-  background: get(p, 'theme.palette.bg'),
+  background: p.theme.c('bg.default'),
 }));
 
 class Routes extends React.Component {
