@@ -65,6 +65,8 @@ class Routes extends React.Component {
               onChange={e => this.setState({ password: e.target.value })}
             />
             <Button
+              variant="text"
+              color="primary"
               disabled={get(this.props, 'requests.login')}
               onClick={() => this.props.userActions.login({
                 email: this.state.email,
@@ -73,7 +75,11 @@ class Routes extends React.Component {
             >
               Login
             </Button>
-            <Button onClick={() => this.props.modeActions.changeMode()}>
+            <Button
+              variant="text"
+              color="secondary"
+              onClick={() => this.props.modeActions.changeMode()}
+            >
               Toggle Mode
             </Button>
           </MainContent>

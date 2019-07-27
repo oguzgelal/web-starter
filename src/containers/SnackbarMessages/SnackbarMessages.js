@@ -66,7 +66,7 @@ class Messages extends React.Component {
             this.dismissMessage(get(displayMessage, 'id'))
           }
         }}
-        variant={get(displayMessage, 'type')}
+        intent={get(displayMessage, 'type')}
         message={get(displayMessage, 'message')}
         action={!get(displayMessage, 'dismiss') ? null : [
           <IconButton

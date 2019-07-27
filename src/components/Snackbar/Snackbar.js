@@ -12,7 +12,7 @@ const Wrapper = styled(MuiSnackbar)(p => ({
 
 const Contents = styled(MuiSnackbarContent)(p => ({
   color: 'white',
-  backgroundColor: p.theme.c(p.variant),
+  backgroundColor: p.theme.m(p.intent),
 }));
 
 const MessageContents = styled('span')(p => ({
@@ -26,7 +26,7 @@ const DisplayIcon = styled(Icon)(p => ({
 }))
 
 const Snackbar = props => {
-  const {action, ...rest} = props
+  const { action, ...rest } = props
 
   return (
     <Wrapper
@@ -41,15 +41,15 @@ const Snackbar = props => {
       {...rest}
     >
       <Contents
-        variant={props.variant}
+        intent={props.intent}
         message={(
           <MessageContents>
             <DisplayIcon style={{ color: 'white' }}>
               {!!props.icon && props.icon}
-              {!props.icon && props.variant === 'error' && 'error'}
-              {!props.icon && props.variant === 'warning' && 'warning'}
-              {!props.icon && props.variant === 'info' && 'info'}
-              {!props.icon && props.variant === 'success' && 'check'}
+              {!props.icon && props.intent === 'error' && 'error'}
+              {!props.icon && props.intent === 'warning' && 'warning'}
+              {!props.icon && props.intent === 'info' && 'info'}
+              {!props.icon && props.intent === 'success' && 'check'}
             </DisplayIcon>
             {props.message}
           </MessageContents>
@@ -62,7 +62,7 @@ const Snackbar = props => {
 
 Snackbar.propTypes = {
   icon: PropTypes.any,
-  variant: PropTypes.oneOf([
+  intent: PropTypes.oneOf([
     'default',
     'success',
     'warning',
