@@ -1,5 +1,5 @@
 import get from 'lodash/get';
-import api from '../../api';
+import api from '../api';
 import initialState from '../../config/initialState';
 
 const SAVE_USER_TO_STATE = 'pim/user/SAVE_USER_TO_STATE';
@@ -9,17 +9,19 @@ const saveUserToState = ({ user }) => ({ type: SAVE_USER_TO_STATE, user });
 const removeUserFromState = () => ({ type: REMOVE_USER_FROM_STATE })
 
 const login = ({ email, password }) => dispatch => {
-  api.auth.login({
-    email,
-    password,
-    onFail: err => {
-      dispatch(removeUserFromState());
-    }
-  })
+  api.request(() => new Promise((rs, rj) => {
+    api.auth.setPersistence(api.authPersistence).then(() => {
+      api.auth.signInWithEmailAndPassword(email, password)
+        .then(rs).catch(rj)
+    }).catch(rj)
+  }), {
+    id: 'login',
+    onFail: err => dispatch(removeUserFromState())
+  });
 }
 
 const setAuthObserver = () => dispatch => {
-  api.auth.registerAuthStateObserver(user => {
+  api.auth.onAuthStateChanged(user => {
     if (user) dispatch(saveUserToState({ user }));
     else dispatch(removeUserFromState());
   })

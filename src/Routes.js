@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import get from 'lodash/get';
-import isEmpty from 'lodash/isEmpty';
 import { styled } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import Snackbar from './components/Snackbar';
 
 import SnackbarMessages from './containers/SnackbarMessages';
 
@@ -60,6 +58,7 @@ class Routes extends React.Component {
               onChange={e => this.setState({ email: e.target.value })}
             />
             <TextField
+              disabled
               label="password"
               value={this.state.password}
               onChange={e => this.setState({ password: e.target.value })}

@@ -1,9 +1,7 @@
 import app from 'firebase/app';
 import 'firebase/auth';
-import store from '../redux/store';
-import { requestActions } from '../redux/modules/requests';
-
-import AuthCtrl from './AuthCtrl';
+import store from './store';
+import { requestActions } from './modules/requests';
 
 class Api {
 
@@ -38,8 +36,9 @@ class Api {
     // initialize the app
     app.initializeApp(this.getConfig());
 
-    // initialize controllers
-    this.auth = new AuthCtrl(app, this.request)
+    // initialize auth
+    this.auth = app.auth();
+    this.authPersistence = app.auth.Auth.Persistence.LOCAL;
 
     // set api on window for easy debug
     if (process.env.NODE_ENV !== 'production') {

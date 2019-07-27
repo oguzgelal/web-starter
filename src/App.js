@@ -9,7 +9,7 @@ import get from 'lodash/get';
 
 import Routes from './Routes';
 
-import api from './api';
+import api from './redux/api';
 import getTheme from './styles/getTheme';
 import { userActions } from './redux/modules/user';
 

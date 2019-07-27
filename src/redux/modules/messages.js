@@ -12,8 +12,8 @@ const register = (message, options = {}) => dispatch => {
   dispatch(
     registerMessage({
       message,
-      type: 'default', // error, success, info, warning
       id: Math.round(Math.random() * 1000000000),
+      type: 'default', // error, success, info, warning
       duration: 3000, // auto dismiss duration
       sticky: false, // will not auto dismiss if true
       dismiss: true, // ability to dismiss the message

@@ -41,12 +41,12 @@ export default vars => ({
       hint: rgba(vars.m(vars.black, vars.white), 0.38),
     },
     action: {
-      active: rgba(vars.m(vars.white, vars.black), 0.54),
-      hover: rgba(vars.m(vars.white, vars.black), 0.08),
-      selected: rgba(vars.m(vars.white, vars.black), 0.14),
-      disabled: rgba(vars.m(vars.white, vars.black), 0.26),
-      disabledBackground: rgba(vars.m(vars.white, vars.black), 0.12),
+      active: rgba(vars.m(vars.black, vars.white), 0.54),
+      hover: rgba(vars.m(vars.black, vars.white), 0.08),
+      selected: rgba(vars.m(vars.black, vars.white), 0.14),
+      disabled: rgba(vars.m(vars.black, vars.white), 0.26),
+      disabledBackground: rgba(vars.m(vars.black, vars.white), 0.12),
     },
-    divider: rgba(vars.m(vars.white, vars.black), 0.12),
+    divider: rgba(vars.m(vars.black, vars.white), 0.12),
   }
 })
