@@ -16,27 +16,59 @@ class Messages extends React.Component {
     super(props, context);
 
     this.state = {
+      open: false,
+      displayMessage: null
     };
+
+    this.setMessage = this.setMessage.bind(this);
+    this.dismissMessage = this.dismissMessage.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    const oldMessage = get(prevProps, 'messages[0].id');
+    const newMessage = get(this.props, 'messages[0].id');
+    if (newMessage !== oldMessage) {
+      this.setMessage();
+    }
+  }
+
+  setMessage() {
+    const displayMessage = get(this.props, 'messages[0]');
+    if (displayMessage && !this.state.displayMessage && !this.state.open) {
+      this.setState({ open: true, displayMessage })
+    }
+  }
+
+  dismissMessage(id) {
+    this.setState({ open: false }, () => {
+      this.props.messageActions.dismiss(id);
+      setTimeout(() => {
+        this.setState({ displayMessage: null }, () => {
+          this.setMessage();
+        })
+      }, 300)
+    })
   }
 
   render() {
-
-    const messages = Object
-      .values(this.props.messages)
-      .filter(m => m.active)
-
-    const displayMessage = messages[0];
-
+    const { open, displayMessage } = this.state;
     return (
       <Snackbar
-        open={!!displayMessage}
+        key={get(displayMessage, 'id')}
+        open={open}
+        autoHideDuration={3000}
+        onClose={(e, reason) => {
+          if (reason === 'timeout') {
+            this.dismissMessage(get(displayMessage, 'id'))
+          }
+        }}
         variant={get(displayMessage, 'type')}
         message={get(displayMessage, 'message')}
         action={[
           <IconButton
             key="close"
             aria-label="close"
-            onClick={() => messageActions.dismiss(get(displayMessage, 'id'))}
+            onClick={() => this.dismissMessage(get(displayMessage, 'id'))}
           >
             <Icon>close</Icon>
           </IconButton>

@@ -9,23 +9,12 @@ const dismiss = id => ({ type: DISMISS, id });
 
 // thunks
 const register = (message, options = {}) => dispatch => {
-
-  // generate a random id for the message
-  const id = Math.round(Math.random() * 1000000000);
-
-  // save message to the state
   dispatch(registerMessage({
-    id,
     message,
-    active: true,
     type: 'default',
+    id: Math.round(Math.random() * 1000000000),
     ...options
   }));
-
-  // dismiss message with timeout if not sticky
-  if (!options.sticky) {
-    setTimeout(() => dispatch(dismiss(id)), options.timeout || 3500)
-  }
 }
 
 export const messageActions = {
@@ -37,11 +26,14 @@ export const messageActions = {
 export default (state = initialState.messages, action = {}) => {
 
   if (action.type === REGISTER) {
-    return { ...state, [action.message.id]: action.message }
+    return [ action.message, ...state ]
   }
 
   if (action.type === DISMISS) {
-    return { ...state, [action.id]: { ...state[action.id], active: false, } }
+    const newState = [...state];
+    const messageIndex = state.map(m => m.id).indexOf(action.id);
+    if (messageIndex !== -1) newState.splice(messageIndex, 1);
+    return newState;
   }
 
   return state;

@@ -13,10 +13,10 @@ import SnackbarMessages from './containers/SnackbarMessages';
 
 import { userActions } from './redux/modules/user';
 
-const Wrapper = styled('div')({
+const Wrapper = styled('div')(p => ({
   display: 'flex',
-  minHeight: '100vh'
-});
+  minHeight: '100vh',
+}));
 
 // ${p => p.theme.breakpoints.up('sm')}
 const Drawer = styled('nav')({});
@@ -27,11 +27,11 @@ const AppContent = styled('div')({
   flexDirection: 'column',
 });
 
-const MainContent = styled('div')({
+const MainContent = styled('div')(p => ({
   flex: 1,
   padding: '48px 36px 0',
-  background: '#eaeff1',
-});
+  background: get(p, 'theme.palette.bg'),
+}));
 
 class Routes extends React.Component {
   constructor(props, context) {

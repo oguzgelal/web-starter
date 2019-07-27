@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import * as serviceWorker from './serviceWorker';
 import { Provider } from 'react-redux';
-import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import { ThemeProvider } from '@material-ui/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { StylesProvider } from '@material-ui/styles';
 
@@ -13,14 +13,14 @@ import theme from './config/theme';
 
 const app = (
   <StylesProvider injectFirst>
-    <MuiThemeProvider theme={theme}>
+    <ThemeProvider theme={theme}>
       <Provider store={store}>
         <>
           <CssBaseline />
           <Base />
         </>
       </Provider>
-    </MuiThemeProvider>
+    </ThemeProvider>
   </StylesProvider>
 );
 
