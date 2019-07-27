@@ -58,7 +58,6 @@ class Routes extends React.Component {
               onChange={e => this.setState({ email: e.target.value })}
             />
             <TextField
-              disabled
               label="password"
               value={this.state.password}
               onChange={e => this.setState({ password: e.target.value })}

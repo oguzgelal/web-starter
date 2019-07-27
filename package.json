@@ -1,5 +1,6 @@
 {
-  "name": "personalim",
+  "name": "web-starter",
+  "author": "Oguz Gelal <o.gelal77@gmail.com>",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
