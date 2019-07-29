@@ -1,7 +1,5 @@
 import app from 'firebase/app';
 import 'firebase/auth';
-import store from './store';
-import { requestActions } from './modules/requests';
 
 class Api {
 
@@ -15,20 +13,6 @@ class Api {
       messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
       appId: process.env.REACT_APP_FIREBASE_APP_ID,
     }
-  }
-
-  // wrap request within dispatch
-  request(...args) {
-    store.dispatch(
-      requestActions.request(...args)
-    )
-  }
-
-  // wrap cancel within dispatch
-  cancel(...args) {
-    store.dispatch(
-      requestActions.cancel(...args)
-    )
   }
 
   init() {

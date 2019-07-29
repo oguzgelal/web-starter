@@ -1,6 +1,6 @@
 export default {
   mode: 'light',
-  user: {},
+  auth: {},
   messages: [],
   requests: {},
 }

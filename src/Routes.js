@@ -9,7 +9,7 @@ import Button from '@material-ui/core/Button';
 
 import SnackbarMessages from './containers/SnackbarMessages';
 
-import { userActions } from './redux/modules/user';
+import { authActions } from './redux/modules/auth';
 import { modeActions } from './redux/modules/mode';
 
 const Wrapper = styled('div')(p => ({
@@ -36,13 +36,13 @@ class Routes extends React.Component {
     super(props, context);
 
     this.state = {
-      mobile: false,
       email: '',
       password: '',
     };
   }
 
   render() {
+    const user = get(this.props, 'auth.user');
     return (
       <>
       <Wrapper>
@@ -52,34 +52,51 @@ class Routes extends React.Component {
         <AppContent>
           {/* <Header /> */}
           <MainContent>
-            <TextField
-              label="email"
-              value={this.state.email}
-              onChange={e => this.setState({ email: e.target.value })}
-            />
-            <TextField
-              label="password"
-              value={this.state.password}
-              onChange={e => this.setState({ password: e.target.value })}
-            />
-            <Button
-              variant="text"
-              color="primary"
-              disabled={get(this.props, 'requests.login')}
-              onClick={() => this.props.userActions.login({
-                email: this.state.email,
-                password: this.state.password,
-              })}
-            >
-              Login
-            </Button>
-            <Button
-              variant="text"
-              color="secondary"
-              onClick={() => this.props.modeActions.changeMode()}
-            >
-              Toggle Mode
-            </Button>
+            {user && (
+              <>
+                Hey, {get(user, 'name') || get(user, 'email')}
+                <Button
+                  variant="text"
+                  color="primary"
+                  disabled={get(this.props, 'requests.logout')}
+                  onClick={() => this.props.authActions.logout()}
+                >
+                  Logout
+                </Button>
+              </>
+            )}
+            {!user && (
+              <>
+                <TextField
+                  label="email"
+                  value={this.state.email}
+                  onChange={e => this.setState({ email: e.target.value })}
+                />
+                <TextField
+                  label="password"
+                  value={this.state.password}
+                  onChange={e => this.setState({ password: e.target.value })}
+                />
+                <Button
+                  variant="text"
+                  color="primary"
+                  disabled={get(this.props, 'requests.login')}
+                  onClick={() => this.props.authActions.login({
+                    email: this.state.email,
+                    password: this.state.password,
+                  })}
+                >
+                  Login
+                </Button>
+                <Button
+                  variant="text"
+                  color="secondary"
+                  onClick={() => this.props.modeActions.changeMode()}
+                >
+                  Toggle Mode
+                </Button>
+              </>
+            )}
           </MainContent>
         </AppContent>
       </Wrapper>
@@ -94,10 +111,11 @@ Routes.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   requests: state.requests,
+  auth: state.auth,
 });
 
 const mapDispatchToProps = dispatch => ({
-  userActions: bindActionCreators(userActions, dispatch),
+  authActions: bindActionCreators(authActions, dispatch),
   modeActions: bindActionCreators(modeActions, dispatch),
 });
 

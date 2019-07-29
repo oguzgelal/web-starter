@@ -11,7 +11,7 @@ import Routes from './Routes';
 
 import api from './redux/api';
 import getTheme from './styles/getTheme';
-import { userActions } from './redux/modules/user';
+import { authActions } from './redux/modules/auth';
 
 class App extends React.Component {
   constructor(props, context) {
@@ -23,7 +23,7 @@ class App extends React.Component {
 
   componentDidMount() {
     api.init();
-    this.props.userActions.setAuthObserver();
+    this.props.authActions.setAuthObserver();
   }
 
   // re-render only if mode changes to
@@ -51,7 +51,7 @@ class App extends React.Component {
 
 App.propTypes = {
   theme: PropTypes.string,
-  userActions: PropTypes.object,
+  authActions: PropTypes.object,
 };
 
 const mapStateToProps = (state, ownProps) => ({
@@ -59,7 +59,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  userActions: bindActionCreators(userActions, dispatch),
+  authActions: bindActionCreators(authActions, dispatch),
 });
 
 export default connect(
