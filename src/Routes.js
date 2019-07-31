@@ -7,6 +7,8 @@ import { styled } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 
+import Login from './redux/pages/auth/Login';
+
 import SnackbarMessages from './containers/SnackbarMessages';
 
 import { authActions } from './redux/modules/auth';
@@ -43,6 +45,11 @@ class Routes extends React.Component {
 
   render() {
     const user = get(this.props, 'auth.user');
+
+    if (!user) {
+      return <Login />
+    }
+
     return (
       <>
       <Wrapper>

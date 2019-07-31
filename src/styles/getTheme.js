@@ -4,6 +4,7 @@ import getColor from '../utils/getColor';
 
 import palette from './palette';
 import overrides from './overrides';
+import zIndex from './zIndex';
 
 export default (options = {}) => {
 
@@ -56,6 +57,7 @@ export default (options = {}) => {
   const theme = createMuiTheme({
     ...palette(vars),
     ...overrides(vars),
+    ...zIndex(vars),
   });
 
   // attach getter method
